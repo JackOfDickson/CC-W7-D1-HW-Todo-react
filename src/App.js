@@ -26,10 +26,11 @@ function App() {
     copyTasks.push({ taskName: newTaskName, priority: newTaskPriority})
     setTasks(copyTasks);
     setNewTaskName('');
+    setNewTaskPriority('');
   }
 
   const checkPriority = (task) => {
-    if (task.priority == 'high') {
+    if (task.priority === 'high') {
       return 'high-priority'
     } else {
       return 'low-priority'
@@ -52,9 +53,9 @@ function App() {
         <label htmlFor='new-task'>New Task</label>
         <input id='new-task' type='text' value={newTaskName} onChange={handleItemInput}/>
         <label>High</label>
-        <input id='high-priority' type='radio' name='priority' value='high' onChange={handleRadioInput}/>
+        <input id='high-priority' type='radio' name='priority' value='high' required onChange={handleRadioInput}/>
         <label>Low</label>
-        <input id='low-priority' type='radio' name='priority' value='low' onChange={handleRadioInput}/>
+        <input id='low-priority' type='radio' name='priority' value='low' required onChange={handleRadioInput}/>
         <input type='submit' value='Save and Add Task'/>
       </form>
       <ul>
