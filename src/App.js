@@ -3,28 +3,42 @@ import React, {useState} from 'react';
 
 function App() {
   const [tasks, setTasks] = useState([
-    { taskName: "Walk the dog", isDone: false},
-    { taskName: "Wash Dishes", isDone: false},
-    { taskName: "Feed Cat", isDone: true}
+    { taskName: "Walk the dog", priority: 'low'},
+    { taskName: "Wash Dishes", priority: 'high'},
+    { taskName: "Feed Cat", priority: 'high'}
   ])
 
-  const [newTask, setNewTask] = useState('')
+  const [newTaskName, setNewTaskName] = useState('')
+
+  const [newTaskPriority, setNewTaskPriority] = useState('')
 
   const handleItemInput = (event) => {
-    setNewTask(event.target.value);
+    setNewTaskName(event.target.value);
+  }
+
+  const handleRadioInput = (event) => {
+    setNewTaskPriority(event.target.value)
   }
 
   const saveNewTask = (event) => {
     event.preventDefault();
     const copyTasks = [...tasks];
-    copyTasks.push({ taskName: newTask, isDone: 'false'})
+    copyTasks.push({ taskName: newTaskName, priority: newTaskPriority})
     setTasks(copyTasks);
-    setNewTask('');
+    setNewTaskName('');
   }
 
-  const taskNodes = tasks.map((task) => {
+  const checkPriority = (task) => {
+    if (task.priority == 'high') {
+      return 'high-priority'
+    } else {
+      return 'low-priority'
+    }
+  }
+
+  const taskNodes = tasks.map((task, index) => {
     return (
-    <li className= {task.isDone ? 'completed':'not-completed'}>
+    <li key={index} className= {checkPriority(task)}>
     <span>{task.taskName}</span>
     </li>
   )
@@ -33,16 +47,19 @@ function App() {
   return (
     <>
       <h1>My ToDo list</h1>
-      <ul>
-        {taskNodes}
-      </ul>
 
       <form onSubmit={saveNewTask}>
         <label htmlFor='new-task'>New Task</label>
-        <input id='new-task' type='text' value={newTask} onChange={handleItemInput}/>
+        <input id='new-task' type='text' value={newTaskName} onChange={handleItemInput}/>
+        <label>High</label>
+        <input id='high-priority' type='radio' name='priority' value='high' onChange={handleRadioInput}/>
+        <label>Low</label>
+        <input id='low-priority' type='radio' name='priority' value='low' onChange={handleRadioInput}/>
         <input type='submit' value='Save and Add Task'/>
-
       </form>
+      <ul>
+        {taskNodes}
+      </ul>
     </>
   );
 }

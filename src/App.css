@@ -45,12 +45,12 @@ ul {
   list-style-type: none;
 }
 
-li.completed {
+li.low-priority {
   border: 2px solid #1a681e;
   color: #1a681e;
 }
 
-li.not-completed {
+li.high-priority {
   border: 2px solid #f2360c;
 }
 
