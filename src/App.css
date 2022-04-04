@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+  font-family: 'Lato', sans-serif;
 }
 
 .App-logo {
@@ -35,4 +37,26 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+ul {
+  margin: 2%;
+  padding: 0;
+  list-style-type: none;
+}
+
+li.completed {
+  border: 2px solid #1a681e;
+  color: #1a681e;
+}
+
+li.not-completed {
+  border: 2px solid #f2360c;
+}
+
+li {
+  margin: 20px 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 }
