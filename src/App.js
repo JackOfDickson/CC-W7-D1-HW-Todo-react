@@ -8,9 +8,23 @@ function App() {
     { taskName: "Feed Cat", isDone: true}
   ])
 
+  const [newTask, setNewTask] = useState('')
+
+  const handleItemInput = (event) => {
+    setNewTask(event.target.value);
+  }
+
+  const saveNewTask = (event) => {
+    event.preventDefault();
+    const copyTasks = [...tasks];
+    copyTasks.push({ taskName: newTask, isDone: 'false'})
+    setTasks(copyTasks);
+    setNewTask('');
+  }
+
   const taskNodes = tasks.map((task) => {
     return (
-    <li className= {task.iDone ? 'completed':'not-completed'}>
+    <li className= {task.isDone ? 'completed':'not-completed'}>
     <span>{task.taskName}</span>
     </li>
   )
@@ -22,6 +36,13 @@ function App() {
       <ul>
         {taskNodes}
       </ul>
+
+      <form onSubmit={saveNewTask}>
+        <label htmlFor='new-task'>New Task</label>
+        <input id='new-task' type='text' value={newTask} onChange={handleItemInput}/>
+        <input type='submit' value='Save and Add Task'/>
+
+      </form>
     </>
   );
 }
